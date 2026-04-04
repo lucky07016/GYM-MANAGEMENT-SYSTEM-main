@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Planner — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="planner">
+    <div class="live-badge" title="Arena feed live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bg-gym-motion bg-gym-motion--planner" aria-hidden="true">
+      <div class="gym-schedule-grid"></div>
+      <div class="gym-timeline-pulse"></div>
+      <div class="gym-slot gym-slot--1"></div>
+      <div class="gym-slot gym-slot--2"></div>
+      <div class="gym-slot gym-slot--3"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workout.html">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="progress.html">Progress</a>
+        <a href="planner.html" class="nav-active">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host" aria-live="assertive"></div>
+
+    <div id="modal-levelup" class="modal modal-celebrate" role="dialog" aria-modal="true" hidden>
+      <div class="modal-backdrop" data-close-levelup></div>
+      <div class="modal-panel modal-panel-sm celebrate-panel">
+        <h2 class="celebrate-title" id="levelup-title">Level up!</h2>
+        <p class="celebrate-sub" id="levelup-sub"></p>
+        <div class="reward-box" id="levelup-reward"></div>
+        <button type="button" class="btn btn-primary btn-block" id="btn-levelup-ok">Claim reward</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Time attack mode</p>
+        <h1 class="page-title">Daily quest planner</h1>
+        <p class="page-lead">
+          Add blocks with minutes and categories. The pie chart shows how your day is allocated—complete tasks
+          for XP and keep rest visible so you don’t burn out.
+        </p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="slideshow card zone-glow" data-interval="5300" data-autoplay="true">
+          <div class="slideshow-track">
+            <article class="slide is-active">
+              <h3 class="slide-title">Pie = clarity</h3>
+              <p class="slide-body">
+                If gym is a sliver but your goal is strength, rebalance. If work dominates, schedule walking
+                breaks as “rest” blocks.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Categories</h3>
+              <p class="slide-body">
+                Morning, work, gym, meals, rest, other—each gets a color on the chart for instant read on
+                imbalances.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">XP loop</h3>
+              <p class="slide-body">
+                Checking off a task the first time pays +15 XP. Use the list as a honest quest log, not a
+                wishlist.
+              </p>
+            </article>
+          </div>
+          <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
+          <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
+          <div class="slideshow-dots"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal" id="planner">
+        <div class="section-head">
+          <h2 class="section-title">Schedule &amp; chart</h2>
+          <p class="section-desc">Pick a date, stack tasks, watch the pie update. Remove mistakes with the × control.</p>
+        </div>
+        <div class="planner-grid">
+          <div class="card">
+            <label class="field">
+              <span>Date</span>
+              <input type="date" id="planner-date" class="select-input" />
+            </label>
+            <form id="form-todo" class="stack-form todo-form">
+              <label class="field">
+                <span>Task</span>
+                <input type="text" name="title" required maxlength="80" placeholder="Morning mobility" />
+              </label>
+              <div class="form-row">
+                <label class="field">
+                  <span>Minutes</span>
+                  <input type="number" name="minutes" min="5" max="480" value="30" required />
+                </label>
+                <label class="field">
+                  <span>Category</span>
+                  <select name="category" class="select-input">
+                    <option value="morning">Morning</option>
+                    <option value="work">Work / study</option>
+                    <option value="gym">Gym</option>
+                    <option value="meal">Meals</option>
+                    <option value="rest">Rest</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Add to schedule</button>
+            </form>
+          </div>
+          <div class="card planner-chart-card">
+            <h3 class="h3-sm">Day breakdown</h3>
+            <div class="pie-wrap">
+              <div id="pie-chart" class="pie-chart" role="img" aria-label="Schedule pie chart"></div>
+              <ul id="pie-legend" class="pie-legend"></ul>
+            </div>
+            <p class="pie-empty hidden" id="pie-empty">Add tasks with minutes to see your day as a pie.</p>
+          </div>
+          <div class="card todo-list-card">
+            <h3 class="h3-sm">Tasks</h3>
+            <ul id="todo-list" class="todo-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Planner discipline</h2>
+        </div>
+        <ul class="bullet-list">
+          <li>Underestimate duration for new habits—win the week with realism.</li>
+          <li>Batch chores into “other” so creative work stays in work blocks.</li>
+          <li>Review the pie on Sunday; adjust Monday’s template like patching a loadout.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="index.html">Home</a> · Daily planner</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

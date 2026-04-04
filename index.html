@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Management System — Fitness RPG Arena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="home">
+    <div class="live-badge" title="Arena feed live" aria-live="polite">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+
+    <div class="bg-gym-motion bg-gym-motion--home" aria-hidden="true">
+      <div class="gym-pulse-orb gym-pulse-orb--a"></div>
+      <div class="gym-pulse-orb gym-pulse-orb--b"></div>
+      <div class="gym-pulse-orb gym-pulse-orb--c"></div>
+      <div class="gym-kettle-ring gym-kettle-ring--1"></div>
+      <div class="gym-kettle-ring gym-kettle-ring--2"></div>
+      <div class="gym-heart-line"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" class="nav-active">Home</a>
+        <a href="workout.html">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="progress.html">Progress</a>
+        <a href="planner.html">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <main class="main-home">
+      <section class="hero-carousel zone-glow js-reveal">
+        <div class="slideshow slideshow--hero" data-interval="6000" data-autoplay="true">
+          <div class="slideshow-track">
+            <article class="slide is-active">
+              <p class="eyebrow">Season 1 · Training grounds</p>
+              <h1>Enter the <span class="text-glow">Gym Arena</span></h1>
+              <p class="lead lead-wide">
+                Your stats live in the browser. Pick a split, fuel smart, stack XP, and own the leaderboard
+                that matters—yours.
+              </p>
+            </article>
+            <article class="slide">
+              <p class="eyebrow">Quest loop</p>
+              <h1>Workouts · Diet · Levels · Planner</h1>
+              <p class="lead lead-wide">
+                Four zones, one neon command center. Slide through missions, unlock titles, and schedule
+                every minute like a speedrun.
+              </p>
+            </article>
+            <article class="slide">
+              <p class="eyebrow">No paywall</p>
+              <h1>Local save · instant respawn</h1>
+              <p class="lead lead-wide">
+                Progress persists on this device. Log in to tag your profile—then grind XP, loot rewards,
+                and flex your streak.
+              </p>
+            </article>
+            <article class="slide">
+              <p class="eyebrow">Patch notes</p>
+              <h1>Gaming zone UI</h1>
+              <p class="lead lead-wide">
+                Slideshows, animated reveals, and a LIVE badge so the arena always feels switched on. Tap a
+                zone below to deploy.
+              </p>
+            </article>
+          </div>
+          <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous slide">‹</button>
+          <button type="button" class="slideshow-btn slideshow-next" aria-label="Next slide">›</button>
+          <div class="slideshow-dots" role="tablist" aria-label="Hero slides"></div>
+        </div>
+        <div class="hero-actions hero-actions--carousel">
+          <a class="btn btn-primary" href="login.html">Deploy profile</a>
+          <a class="btn btn-ghost" href="workout.html">Enter workout zone</a>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Mission zones</h2>
+          <p class="section-desc">
+            Each zone is its own page—loaded with slideshow tips, animations, and interactive tools. Clear
+            objectives. Big feedback. Same mint-on-dark identity.
+          </p>
+        </div>
+        <div class="zone-grid">
+          <a href="login.html" class="zone-card zone-card--auth">
+            <span class="zone-icon">🔐</span>
+            <h3>Login / Sign up</h3>
+            <p>One login button; new players roll a character with email. Session saved locally.</p>
+            <span class="zone-cta">Open gate →</span>
+          </a>
+          <a href="workout.html" class="zone-card">
+            <span class="zone-icon">🏋️</span>
+            <h3>Workout zone</h3>
+            <p>PPL, upper/lower, bro split, full body, arms, legs—pick a split and claim daily workout XP.</p>
+            <span class="zone-cta">Load split →</span>
+          </a>
+          <a href="diet.html" class="zone-card">
+            <span class="zone-icon">🥗</span>
+            <h3>Diet lab</h3>
+            <p>Budget + style survey → generated weekly chart. First chart drops bonus XP.</p>
+            <span class="zone-cta">Run survey →</span>
+          </a>
+          <a href="progress.html" class="zone-card">
+            <span class="zone-icon">📈</span>
+            <h3>Progress RPG</h3>
+            <p>Levels, titles, reward locker—every rep feeds the XP bar. Level-up modal included.</p>
+            <span class="zone-cta">View ranks →</span>
+          </a>
+          <a href="planner.html" class="zone-card">
+            <span class="zone-icon">🥧</span>
+            <h3>Daily planner</h3>
+            <p>Quest list + pie chart by category. Check tasks for XP; see your day as a speedrun chart.</p>
+            <span class="zone-cta">Plan day →</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="stats-strip js-reveal">
+        <div class="stat-pill">
+          <span class="stat-num">10</span>
+          <span class="stat-label">Rank tiers</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Split archetypes</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Local quests</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">LIVE</span>
+          <span class="stat-label">Arena feed</span>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">How the arena works</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-num">01</span>
+            <h3>Choose your zone</h3>
+            <p>
+              Workouts for programming, Diet for fuel math, Progress for XP, Planner for time attacks. Each
+              page runs its own UI loop.
+            </p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">02</span>
+            <h3>Interact &amp; earn</h3>
+            <p>
+              Complete workouts, todos, and your first diet chart to gain XP. Watch for level-ups and
+              cosmetic rewards.
+            </p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">03</span>
+            <h3>Stay on schedule</h3>
+            <p>
+              The planner turns minutes into a pie—balance gym blocks with work, meals, and rest like a
+              build order.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Tips from the booth</h2>
+          <p class="section-desc">
+            Short reads while the slideshow runs. These are static hints—your real data lives in each zone’s
+            tools.
+          </p>
+        </div>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <strong>Warm-up quest</strong>
+            <p>5 minutes of light cardio + dynamic mobility before heavy compounds. Treat it as a loading bar.</p>
+          </div>
+          <div class="tip-card">
+            <strong>Macro ping</strong>
+            <p>Protein first, then fiber, then carbs around training. The diet lab turns your budget into a grid.</p>
+          </div>
+          <div class="tip-card">
+            <strong>XP ethics</strong>
+            <p>XP is for motivation—log honestly. The game respects consistency more than spam clicks.</p>
+          </div>
+          <div class="tip-card">
+            <strong>Recovery buff</strong>
+            <p>Sleep is the silent patch note. Schedule rest blocks in the planner so your pie isn’t all grind.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Gym Management System — fitness RPG · separate zones · data in your browser</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
