@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress RPG — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="progress">
+    <div class="live-badge" title="Arena feed live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bg-gym-motion bg-gym-motion--progress" aria-hidden="true">
+      <div class="gym-eq-bars">
+        <span class="gym-eq-bar" style="--h: 35%; --t: 0s"></span>
+        <span class="gym-eq-bar" style="--h: 55%; --t: 0.15s"></span>
+        <span class="gym-eq-bar" style="--h: 45%; --t: 0.3s"></span>
+        <span class="gym-eq-bar" style="--h: 70%; --t: 0.1s"></span>
+        <span class="gym-eq-bar" style="--h: 50%; --t: 0.25s"></span>
+        <span class="gym-eq-bar" style="--h: 65%; --t: 0.05s"></span>
+        <span class="gym-eq-bar" style="--h: 40%; --t: 0.2s"></span>
+      </div>
+      <div class="gym-xp-spark gym-xp-spark--1"></div>
+      <div class="gym-xp-spark gym-xp-spark--2"></div>
+      <div class="gym-xp-spark gym-xp-spark--3"></div>
+      <div class="gym-ladder-glow"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workout.html">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="progress.html" class="nav-active">Progress</a>
+        <a href="planner.html">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host" aria-live="assertive"></div>
+
+    <div id="modal-levelup" class="modal modal-celebrate" role="dialog" aria-modal="true" hidden>
+      <div class="modal-backdrop" data-close-levelup></div>
+      <div class="modal-panel modal-panel-sm celebrate-panel">
+        <h2 class="celebrate-title" id="levelup-title">Level up!</h2>
+        <p class="celebrate-sub" id="levelup-sub"></p>
+        <div class="reward-box" id="levelup-reward"></div>
+        <button type="button" class="btn btn-primary btn-block" id="btn-levelup-ok">Claim reward</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Ranked ladder</p>
+        <h1 class="page-title">Progress RPG</h1>
+        <p class="page-lead">
+          XP comes from workouts, todos, diet milestones, and signup. Levels unlock titles and stash rewards—this
+          page is your scoreboard and trophy case.
+        </p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="slideshow card zone-glow" data-interval="5400" data-autoplay="true">
+          <div class="slideshow-track">
+            <article class="slide is-active">
+              <h3 class="slide-title">XP sources</h3>
+              <p class="slide-body">
+                +25 workout (once/day), +15 per todo first clear, +10 first diet chart, +20 on sign-up. Stack
+                smart, not fast.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Titles</h3>
+              <p class="slide-body">
+                From Novice to Overlord—each tier is a vibe check on your consistency, not your max bench.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Rewards</h3>
+              <p class="slide-body">
+                Cosmetic flair and bragging rights. Real gains still happen under the bar and in the kitchen.
+              </p>
+            </article>
+          </div>
+          <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
+          <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
+          <div class="slideshow-dots"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal" id="progress">
+        <div class="section-head">
+          <h2 class="section-title">Your rank</h2>
+          <p class="section-desc">Ring + bar mirror XP within the current level. At level 10, you have hit the cap.</p>
+        </div>
+        <div class="game-grid">
+          <div class="card game-card">
+            <div class="game-top">
+              <div>
+                <p class="game-label">Current rank</p>
+                <p class="game-title" id="game-rank-title">Novice</p>
+                <p class="game-level"><span id="game-level-num">1</span></p>
+              </div>
+              <div class="xp-ring-wrap" aria-hidden="true">
+                <svg class="xp-ring" viewBox="0 0 64 64">
+                  <circle class="xp-ring-bg" cx="32" cy="32" r="28" />
+                  <circle id="xp-ring-fill" class="xp-ring-fill" cx="32" cy="32" r="28" />
+                </svg>
+                <span class="xp-ring-text" id="xp-pct">0%</span>
+              </div>
+            </div>
+            <div class="xp-bar-wrap">
+              <div class="xp-bar">
+                <div class="xp-bar-inner" id="xp-bar-inner"></div>
+              </div>
+              <p class="xp-caption">
+                <span id="xp-current">0</span> / <span id="xp-next">100</span> XP to next level
+              </p>
+            </div>
+            <p class="total-xp">Total XP: <strong id="total-xp">0</strong></p>
+          </div>
+          <div class="card game-card">
+            <h3 class="h3-sm">Rewards locker</h3>
+            <ul class="reward-list" id="reward-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Patch philosophy</h2>
+        </div>
+        <p class="muted-block max-prose">
+          Treat this ladder like a seasonal game: set a 12-week macro goal, run your splits, keep protein
+          steady, and use the planner to protect sleep. The UI celebrates milestones so you stay engaged when
+          plateaus hit.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="index.html">Home</a> · Progress RPG</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

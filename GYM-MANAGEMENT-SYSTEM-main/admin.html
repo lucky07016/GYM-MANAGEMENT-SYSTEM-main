@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Gym Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .admin-header p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .admin-section {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .admin-section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            background: rgba(62, 232, 168, 0.08);
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        tr:hover {
+            background: rgba(62, 232, 168, 0.04);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(62, 232, 168, 0.2);
+            color: var(--accent);
+        }
+
+        .badge-error {
+            background: rgba(255, 107, 157, 0.2);
+            color: #ff6b9d;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn-admin {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(62, 232, 168, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+
+        .error-message {
+            background: rgba(255, 107, 157, 0.1);
+            border: 1px solid #ff6b9d;
+            color: #ff6b9d;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background: rgba(62, 232, 168, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body data-page="admin">
+    <header class="site-header site-header--padded">
+        <a href="index.html" class="logo">
+            <span class="logo-mark" aria-hidden="true"></span>
+            Gym Management System
+        </a>
+        <nav class="nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="admin.html" style="color: var(--accent);">Admin</a>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📊 Admin Dashboard</h1>
+            <p>View authentication statistics, user data, and login history</p>
+        </div>
+
+        <div id="error-container"></div>
+
+        <div class="stats-grid" id="stats-container">
+            <div class="stat-card">
+                <div class="stat-value">-</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">-</div>
+                <div class="stat-label">Total Login Attempts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">-</div>
+                <div class="stat-label">Successful Logins</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">-</div>
+                <div class="stat-label">Failed Logins</div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>🔍 Recent Login History</h2>
+            <div class="button-group">
+                <button class="btn-admin" onclick="loadHistory()">🔄 Refresh</button>
+                <button class="btn-admin" onclick="exportData()">📥 Export Data</button>
+            </div>
+            <div class="table-scroll" id="history-container">
+                <p class="empty-state">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p><a href="index.html">← Back to home</a> · Gym Management System</p>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api/auth';
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                if (!response.ok) throw new Error('Failed to load stats');
+                const data = await response.json();
+
+                const cards = document.querySelectorAll('.stat-card');
+                cards[0].querySelector('.stat-value').textContent = data.totalUsers;
+                cards[1].querySelector('.stat-value').textContent = data.totalLoginAttempts;
+                cards[2].querySelector('.stat-value').textContent = data.successfulLogins;
+                cards[3].querySelector('.stat-value').textContent = data.failedLogins;
+            } catch (error) {
+                showError('Failed to load statistics: ' + error.message);
+            }
+        }
+
+        async function loadHistory() {
+            try {
+                const response = await fetch(`${API_BASE}/history`);
+                if (!response.ok) throw new Error('Failed to load history');
+                const data = await response.json();
+
+                if (!data.history || data.history.length === 0) {
+                    document.getElementById('history-container').innerHTML = '<p class="empty-state">No login history yet</p>';
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Email</th>
+                                <th>Display Name</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                                <th>IP Address</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.history.forEach(entry => {
+                    const statusBadge = entry.action === 'login_success' || entry.action === 'signup'
+                        ? '<span class="badge badge-success">✓ Success</span>'
+                        : '<span class="badge badge-error">✗ Failed</span>';
+
+                    const reason = entry.reason ? ` (${entry.reason})` : '';
+                    const name = entry.displayName || entry.email || '-';
+                    const timestamp = new Date(entry.timestamp).toLocaleString();
+
+                    html += `
+                        <tr>
+                            <td><strong>${entry.action}</strong>${reason}</td>
+                            <td>${entry.email}</td>
+                            <td>${name}</td>
+                            <td>${statusBadge}</td>
+                            <td>${entry.responseTime}</td>
+                            <td>${entry.network?.ip || 'Unknown'}</td>
+                            <td>${timestamp}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                document.getElementById('history-container').innerHTML = html;
+            } catch (error) {
+                showError('Failed to load history: ' + error.message);
+            }
+        }
+
+        async function exportData() {
+            try {
+                const response = await fetch(`${API_BASE}/history`);
+                if (!response.ok) throw new Error('Failed to export data');
+                const data = await response.json();
+
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `gym-auth-data-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                showSuccess('Data exported successfully!');
+            } catch (error) {
+                showError('Failed to export data: ' + error.message);
+            }
+        }
+
+        function showError(message) {
+            const container = document.getElementById('error-container');
+            container.innerHTML = `<div class="error-message">${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+
+        function showSuccess(message) {
+            const container = document.getElementById('error-container');
+            container.innerHTML = `<div class="success-message">${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 3000);
+        }
+
+        // Load data on page load
+        window.addEventListener('load', () => {
+            loadStats();
+            loadHistory();
+
+            // Refresh every 5 seconds
+            setInterval(() => {
+                loadStats();
+                loadHistory();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

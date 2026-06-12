@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "2d316ec2-3ad6-456b-804d-a786a3fa19a6",
+      "displayName": "Lucifer",
+      "email": "pattiesfav@gmail.com",
+      "password": "1ae1dfad0079214c95ed354c9c8b72687b5935c5add36fed106a40dc74761102",
+      "createdAt": "2026-06-12T09:49:14.609Z",
+      "createdFrom": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.124.2 Chrome/148.0.7778.97 Electron/42.2.0 Safari/537.36",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      }
+    }
+  ],
+  "loginHistory": [
+    {
+      "action": "signup",
+      "userId": "2d316ec2-3ad6-456b-804d-a786a3fa19a6",
+      "email": "pattiesfav@gmail.com",
+      "displayName": "Lucifer",
+      "timestamp": "2026-06-12T09:49:14.609Z",
+      "responseTime": "5ms",
+      "network": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.124.2 Chrome/148.0.7778.97 Electron/42.2.0 Safari/537.36",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      },
+      "xp": 20
+    }
+  ]
+}

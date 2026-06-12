@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Zone — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="workout">
+    <div class="live-badge" title="Arena feed live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bg-gym-motion bg-gym-motion--workout" aria-hidden="true">
+      <div class="gym-ripple gym-ripple--1"></div>
+      <div class="gym-ripple gym-ripple--2"></div>
+      <div class="gym-ripple gym-ripple--3"></div>
+      <div class="gym-barbell-float">
+        <span class="gym-plate gym-plate--l"></span>
+        <span class="gym-bar"></span>
+        <span class="gym-plate gym-plate--r"></span>
+      </div>
+      <div class="gym-honeycomb"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workout.html" class="nav-active">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="progress.html">Progress</a>
+        <a href="planner.html">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host" aria-live="assertive"></div>
+
+    <div id="modal-levelup" class="modal modal-celebrate" role="dialog" aria-modal="true" hidden>
+      <div class="modal-backdrop" data-close-levelup></div>
+      <div class="modal-panel modal-panel-sm celebrate-panel">
+        <h2 class="celebrate-title" id="levelup-title">Level up!</h2>
+        <p class="celebrate-sub" id="levelup-sub"></p>
+        <div class="reward-box" id="levelup-reward"></div>
+        <button type="button" class="btn btn-primary btn-block" id="btn-levelup-ok">Claim reward</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Training grounds</p>
+        <h1 class="page-title">Workout zone</h1>
+        <p class="page-lead">
+          Select a split to see daily focus and exercise ideas. Hit “complete workout” once per day for XP—your
+          program is a loop, not a single boss fight.
+        </p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="slideshow card zone-glow" data-interval="5500" data-autoplay="true">
+          <div class="slideshow-track">
+            <article class="slide is-active">
+              <h3 class="slide-title">Split science</h3>
+              <p class="slide-body">
+                PPL spreads volume across push, pull, and legs. Upper/lower fits 4-day weeks. Bro splits add
+                frequency per muscle if you recover fast.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Progression</h3>
+              <p class="slide-body">
+                Add reps or load weekly. If bar speed drops, keep weight and chase crisp form—XP rewards
+                showing up, not ego lifting.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Rest codes</h3>
+              <p class="slide-body">
+                Compounds: 2–3 min. Accessories: 60–90s. Write rest in your head like a countdown HUD.
+              </p>
+            </article>
+          </div>
+          <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
+          <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
+          <div class="slideshow-dots"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal" id="workout">
+        <div class="section-head">
+          <h2 class="section-title">Pick your split</h2>
+          <p class="section-desc">
+            Each template lists example movements—swap equivalents (e.g., dumbbell vs barbell) to match equipment.
+          </p>
+        </div>
+        <div class="panel card">
+          <label class="field inline-field">
+            <span>Split type</span>
+            <select id="split-select" class="select-input"></select>
+          </label>
+          <div id="split-detail" class="split-detail"></div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-workout-done">
+            Complete today’s workout (+25 XP)
+          </button>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Loadout notes</h2>
+        </div>
+        <div class="two-col">
+          <div class="card mini-card">
+            <h3 class="h3-sm">Volume dial</h3>
+            <p class="muted-block">
+              Beginners: 10–14 sets per muscle per week. Intermediate+: 14–22 if recovery is green.
+            </p>
+          </div>
+          <div class="card mini-card">
+            <h3 class="h3-sm">Deload week</h3>
+            <p class="muted-block">
+              Every 4–6 weeks, cut sets and loads ~40% for a week—keeps joints and nerves in the game.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="index.html">Home</a> · Workout zone · local XP</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
