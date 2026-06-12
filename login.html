@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="login">
+    <div class="live-badge" title="Arena feed live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bg-gym-motion bg-gym-motion--login" aria-hidden="true">
+      <div class="gym-portal-ring gym-portal-ring--outer"></div>
+      <div class="gym-portal-ring gym-portal-ring--inner"></div>
+      <div class="gym-key-glow"></div>
+      <div class="gym-scan-sweep"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workout.html">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="progress.html">Progress</a>
+        <a href="planner.html">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm hidden" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host" aria-live="assertive"></div>
+
+    <div id="modal-levelup" class="modal modal-celebrate" role="dialog" aria-modal="true" hidden>
+      <div class="modal-backdrop" data-close-levelup></div>
+      <div class="modal-panel modal-panel-sm celebrate-panel">
+        <h2 class="celebrate-title" id="levelup-title">Level up!</h2>
+        <p class="celebrate-sub" id="levelup-sub"></p>
+        <div class="reward-box" id="levelup-reward"></div>
+        <button type="button" class="btn btn-primary btn-block" id="btn-levelup-ok">Claim reward</button>
+      </div>
+    </div>
+
+    <main class="main-narrow">
+      <section class="auth-layout">
+        <div class="auth-slideshow card zone-glow js-reveal">
+          <div class="slideshow" data-interval="5000" data-autoplay="true">
+            <div class="slideshow-track">
+              <article class="slide is-active">
+                <p class="eyebrow">Gatekeeper</p>
+                <h2 class="h2-auth">Secure your save file</h2>
+                <p class="muted-block">
+                  One account ties your display name to XP, diet runs, and planner data on this device.
+                </p>
+              </article>
+              <article class="slide">
+                <p class="eyebrow">New players</p>
+                <h2 class="h2-auth">Create a character</h2>
+                <p class="muted-block">
+                  Sign up rolls +20 XP to kickstart your rank. No email verification in this demo—keep it
+                  local.
+                </p>
+              </article>
+              <article class="slide">
+                <p class="eyebrow">Veterans</p>
+                <h2 class="h2-auth">Same arena, faster load</h2>
+                <p class="muted-block">
+                  After login, hit Workouts or Planner from the nav. Your streak continues where you left off.
+                </p>
+              </article>
+            </div>
+            <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
+            <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
+            <div class="slideshow-dots"></div>
+          </div>
+        </div>
+
+        <div class="auth-forms card js-reveal">
+          <div id="panel-login">
+            <h1 class="page-title">Player login</h1>
+            <p class="page-lead">Enter credentials to tag your profile on this browser.</p>
+            <form id="form-login" class="stack-form">
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" required autocomplete="username" />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input type="password" name="password" required autocomplete="current-password" />
+              </label>
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            <p class="modal-switch">
+              New here?
+              <button type="button" class="link-btn" id="btn-show-signup">Create an account</button>
+            </p>
+          </div>
+
+          <div id="panel-signup" class="hidden">
+            <h1 class="page-title">Join the arena</h1>
+            <p class="page-lead">Create a profile to unlock tracking, levels, and rewards.</p>
+            <form id="form-signup" class="stack-form">
+              <label class="field">
+                <span>Display name</span>
+                <input type="text" name="displayName" required maxlength="40" />
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input type="password" name="password" required minlength="4" autocomplete="new-password" />
+              </label>
+              <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+            </form>
+            <p class="modal-switch">
+              Already have an account?
+              <button type="button" class="link-btn" id="btn-show-login">Back to login</button>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Why log in?</h2>
+        </div>
+        <ul class="bullet-list">
+          <li>Shows your display name in the header instead of “guest”.</li>
+          <li>Keeps a clear boundary if multiple people share the same PC (separate emails).</li>
+          <li>Sign-up grants bonus XP so the progress RPG starts with momentum.</li>
+          <li>Everything still saves locally—this isn’t cloud sync; it’s a labeled save slot.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="index.html">← Back to home</a> · Gym Management System</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

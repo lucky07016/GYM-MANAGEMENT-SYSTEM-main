@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diet Lab — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="diet">
+    <div class="live-badge" title="Arena feed live">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bg-gym-motion bg-gym-motion--diet" aria-hidden="true">
+      <div class="gym-macro-dot gym-macro--protein"></div>
+      <div class="gym-macro-dot gym-macro--carb"></div>
+      <div class="gym-macro-dot gym-macro--fat"></div>
+      <div class="gym-macro-dot gym-macro--fiber"></div>
+      <div class="gym-fork-glow"></div>
+      <div class="gym-nutrient-wave"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        Gym Management System
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workout.html">Workouts</a>
+        <a href="diet.html" class="nav-active">Diet</a>
+        <a href="progress.html">Progress</a>
+        <a href="planner.html">Planner</a>
+      </nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host" aria-live="assertive"></div>
+
+    <div id="modal-levelup" class="modal modal-celebrate" role="dialog" aria-modal="true" hidden>
+      <div class="modal-backdrop" data-close-levelup></div>
+      <div class="modal-panel modal-panel-sm celebrate-panel">
+        <h2 class="celebrate-title" id="levelup-title">Level up!</h2>
+        <p class="celebrate-sub" id="levelup-sub"></p>
+        <div class="reward-box" id="levelup-reward"></div>
+        <button type="button" class="btn btn-primary btn-block" id="btn-levelup-ok">Claim reward</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Nutrition quest</p>
+        <h1 class="page-title">Diet lab</h1>
+        <p class="page-lead">
+          Tell us your budget and eating style—then we generate a week-long grid of meal ideas. First chart
+          drops bonus XP; updates keep your plan fresh.
+        </p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="slideshow card zone-glow" data-interval="5200" data-autoplay="true">
+          <div class="slideshow-track">
+            <article class="slide is-active">
+              <h3 class="slide-title">Budget tiers</h3>
+              <p class="slide-body">
+                Low leans on eggs, legumes, frozen produce. Mid adds variety; high unlocks premium proteins and
+                specialty items—still framed for your goal.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Style matters</h3>
+              <p class="slide-body">
+                Vegan runs need complete proteins across the day. High protein prioritizes amino density for
+                recovery.
+              </p>
+            </article>
+            <article class="slide">
+              <h3 class="slide-title">Customize field</h3>
+              <p class="slide-body">
+                Allergies, cultural foods, or “no breakfast”—we append your notes to the plan header so you
+                remember the rules.
+              </p>
+            </article>
+          </div>
+          <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
+          <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
+          <div class="slideshow-dots"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal" id="diet">
+        <div class="section-head">
+          <h2 class="section-title">Survey → chart</h2>
+          <p class="section-desc">Fields drive the generator below. Hit generate whenever your budget or goal shifts.</p>
+        </div>
+        <div class="panel card">
+          <form id="form-diet" class="diet-form">
+            <div class="form-grid">
+              <fieldset class="fieldset">
+                <legend>Weekly budget (groceries)</legend>
+                <label class="radio-tile">
+                  <input type="radio" name="budget" value="low" checked />
+                  <span>Low</span>
+                  <small>Economy staples</small>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="budget" value="mid" />
+                  <span>Mid</span>
+                  <small>Balanced picks</small>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="budget" value="high" />
+                  <span>High</span>
+                  <small>Premium variety</small>
+                </label>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Diet style</legend>
+                <label class="radio-tile">
+                  <input type="radio" name="dietStyle" value="omnivore" checked />
+                  <span>Omnivore</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="dietStyle" value="vegetarian" />
+                  <span>Vegetarian</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="dietStyle" value="vegan" />
+                  <span>Vegan</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="dietStyle" value="highprotein" />
+                  <span>High protein</span>
+                </label>
+              </fieldset>
+              <label class="field">
+                <span>Goal</span>
+                <select name="goal" class="select-input">
+                  <option value="cut">Fat loss</option>
+                  <option value="maintain" selected>Maintain</option>
+                  <option value="bulk">Muscle gain</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Meals per day</span>
+                <select name="mealsPerDay" class="select-input">
+                  <option value="3">3</option>
+                  <option value="4" selected>4</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
+              <label class="field full-width">
+                <span>Customize (likes / avoid)</span>
+                <textarea
+                  name="custom"
+                  rows="3"
+                  placeholder="e.g. love Greek yogurt, no shellfish, quick breakfasts…"
+                ></textarea>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate diet chart</button>
+          </form>
+          <div id="diet-output" class="diet-output hidden"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Hydration &amp; timing</h2>
+        </div>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <strong>Water buff</strong>
+            <p>Front-load water away from meals if you bloat easily; keep a bottle visible like a HUD item.</p>
+          </div>
+          <div class="tip-card">
+            <strong>Training fuel</strong>
+            <p>Carbs pre-workout can top glycogen; post-workout pair protein + carbs within a few hours.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="index.html">Home</a> · Diet lab</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
