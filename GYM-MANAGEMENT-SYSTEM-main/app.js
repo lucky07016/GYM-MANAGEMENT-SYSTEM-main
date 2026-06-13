@@ -935,16 +935,30 @@
 
     btnStartCamera.addEventListener("click", async () => {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } }
-        });
+        // Try to get camera with rear camera preference, fallback to any camera
+        const constraints = {
+          video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } }
+        };
+        
+        try {
+          stream = await navigator.mediaDevices.getUserMedia(constraints);
+        } catch (e) {
+          // If rear camera fails, try without facingMode preference
+          console.warn("Rear camera not available, trying any available camera:", e.name);
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+          });
+        }
+        
         video.srcObject = stream;
+        video.play();
         btnStartCamera.classList.add("hidden");
         btnCaptureFood.classList.remove("hidden");
         btnStopCamera.classList.remove("hidden");
         toast("Camera started! Frame your food and capture.");
       } catch (error) {
-        toast("Camera access denied. Check permissions.", "error");
+        console.error("Camera error:", error.name, "-", error.message);
+        toast(`Camera access denied: ${error.name}. Check browser permissions.`, "error");
       }
     });
 

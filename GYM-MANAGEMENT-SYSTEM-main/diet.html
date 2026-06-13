@@ -184,7 +184,7 @@
         <div class="panel card">
           <div class="scanner-container">
             <div class="camera-section">
-              <video id="food-camera" class="food-camera" autoplay playsinline></video>
+              <video id="food-camera" class="food-camera" autoplay muted playsinline></video>
               <canvas id="food-canvas" class="food-canvas hidden"></canvas>
               <div class="camera-overlay">
                 <div class="scanner-frame"></div>
@@ -193,7 +193,7 @@
             <div class="scanner-controls">
               <button type="button" class="btn btn-primary" id="btn-start-camera">Start Camera</button>
               <button type="button" class="btn btn-secondary hidden" id="btn-capture-food">Capture Food</button>
-              <button type="button" class="btn btn-ghost" id="btn-stop-camera">Stop</button>
+              <button type="button" class="btn btn-ghost hidden" id="btn-stop-camera">Stop</button>
             </div>
           </div>
           <div id="food-result" class="food-result hidden">
