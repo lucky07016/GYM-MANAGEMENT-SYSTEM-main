@@ -827,6 +827,7 @@
     if (p === "diet") {
       initDiet();
       initFoodScanner();
+      initIndianFoodGallery();
       initMacroCalculator();
     }
     if (p === "planner") initPlanner();
@@ -852,73 +853,98 @@
   // ===== FOOD DATABASE (Indian + All Cuisines) =====
   const FOOD_DATABASE = [
     // Indian Foods
-    { name: "Rice (Cooked, white)", cal: 130, protein: 2.7, carbs: 28, fat: 0.3, serving: 100 },
-    { name: "Rice (Cooked, brown)", cal: 111, protein: 2.6, carbs: 23, fat: 0.9, serving: 100 },
-    { name: "Basmati Rice", cal: 130, protein: 2.7, carbs: 28, fat: 0.3, serving: 100 },
-    { name: "Dal (Red lentil curry)", cal: 95, protein: 7.0, carbs: 17, fat: 0.3, serving: 100 },
-    { name: "Chana Dal", cal: 120, protein: 8.0, carbs: 20, fat: 1.0, serving: 100 },
-    { name: "Moong Dal", cal: 105, protein: 8.2, carbs: 19, fat: 0.4, serving: 100 },
-    { name: "Paneer (Cottage cheese)", cal: 265, protein: 25, carbs: 3.3, fat: 17, serving: 100 },
-    { name: "Paneer Tikka", cal: 220, protein: 21, carbs: 2.0, fat: 15, serving: 100 },
-    { name: "Chole (Chickpeas)", cal: 119, protein: 6.4, carbs: 20, fat: 2.1, serving: 100 },
-    { name: "Aloo Gobi (Potato & cauliflower)", cal: 80, protein: 2.5, carbs: 15, fat: 2.0, serving: 100 },
-    { name: "Chicken Curry", cal: 160, protein: 22, carbs: 2.0, fat: 8.0, serving: 100 },
-    { name: "Tandoori Chicken", cal: 165, protein: 31, carbs: 0, fat: 3.6, serving: 100 },
-    { name: "Biryani (with chicken)", cal: 240, protein: 12, carbs: 30, fat: 8.0, serving: 100 },
-    { name: "Samosa (fried, potato)", cal: 262, protein: 3.8, carbs: 32, fat: 13, serving: 100 },
-    { name: "Chapati/Roti", cal: 165, protein: 5.4, carbs: 33, fat: 1.3, serving: 100 },
-    { name: "Naan (plain)", cal: 262, protein: 8.5, carbs: 43, fat: 5.5, serving: 100 },
-    { name: "Paratha", cal: 236, protein: 5.0, carbs: 38, fat: 7.5, serving: 100 },
-    { name: "Dosa", cal: 168, protein: 3.0, carbs: 33, fat: 0.7, serving: 100 },
-    { name: "Idli", cal: 50, protein: 2.0, carbs: 10, fat: 0.3, serving: 100 },
-    { name: "Upma", cal: 140, protein: 4.0, carbs: 26, fat: 2.5, serving: 100 },
-    { name: "Ghee", cal: 892, protein: 0.0, carbs: 0, fat: 99, serving: 10 },
-    { name: "Coconut Oil", cal: 892, protein: 0.0, carbs: 0, fat: 99, serving: 10 },
-    { name: "Yogurt (plain)", cal: 59, protein: 3.5, carbs: 3.3, fat: 0.4, serving: 100 },
-    { name: "Lassi (sweet)", cal: 60, protein: 2.0, carbs: 10, fat: 1.0, serving: 100 },
+    { name: "Rice (Cooked, white)", cal: 130, protein: 2.7, carbs: 28, fat: 0.3, serving: 100, image: "🍚" },
+    { name: "Rice (Cooked, brown)", cal: 111, protein: 2.6, carbs: 23, fat: 0.9, serving: 100, image: "🍚" },
+    { name: "Basmati Rice", cal: 130, protein: 2.7, carbs: 28, fat: 0.3, serving: 100, image: "🍚" },
+    { name: "Dal (Red lentil curry)", cal: 95, protein: 7.0, carbs: 17, fat: 0.3, serving: 100, image: "🍲" },
+    { name: "Chana Dal", cal: 120, protein: 8.0, carbs: 20, fat: 1.0, serving: 100, image: "🍲" },
+    { name: "Moong Dal", cal: 105, protein: 8.2, carbs: 19, fat: 0.4, serving: 100, image: "🍲" },
+    { name: "Paneer (Cottage cheese)", cal: 265, protein: 25, carbs: 3.3, fat: 17, serving: 100, image: "🧀" },
+    { name: "Paneer Tikka", cal: 220, protein: 21, carbs: 2.0, fat: 15, serving: 100, image: "🍗" },
+    { name: "Paneer Bhurji", cal: 180, protein: 18, carbs: 4.0, fat: 12, serving: 100, image: "🍳" },
+    { name: "Chole (Chickpeas)", cal: 119, protein: 6.4, carbs: 20, fat: 2.1, serving: 100, image: "🫘" },
+    { name: "Chole Bhature", cal: 220, protein: 8.0, carbs: 35, fat: 7.0, serving: 100, image: "🍲" },
+    { name: "Aloo Gobi (Potato & cauliflower)", cal: 80, protein: 2.5, carbs: 15, fat: 2.0, serving: 100, image: "🥬" },
+    { name: "Aloo Paratha", cal: 280, protein: 6.0, carbs: 45, fat: 10, serving: 100, image: "🥘" },
+    { name: "Chicken Curry", cal: 160, protein: 22, carbs: 2.0, fat: 8.0, serving: 100, image: "🍛" },
+    { name: "Tandoori Chicken", cal: 165, protein: 31, carbs: 0, fat: 3.6, serving: 100, image: "🍗" },
+    { name: "Butter Chicken", cal: 215, protein: 18, carbs: 5.0, fat: 14, serving: 100, image: "🍛" },
+    { name: "Biryani (with chicken)", cal: 240, protein: 12, carbs: 30, fat: 8.0, serving: 100, image: "🍚" },
+    { name: "Biryani (with mutton)", cal: 260, protein: 14, carbs: 30, fat: 11, serving: 100, image: "🍚" },
+    { name: "Samosa (fried, potato)", cal: 262, protein: 3.8, carbs: 32, fat: 13, serving: 100, image: "🥟" },
+    { name: "Chapati/Roti", cal: 165, protein: 5.4, carbs: 33, fat: 1.3, serving: 100, image: "🫓" },
+    { name: "Whole Wheat Roti", cal: 155, protein: 5.0, carbs: 31, fat: 1.0, serving: 100, image: "🫓" },
+    { name: "Naan (plain)", cal: 262, protein: 8.5, carbs: 43, fat: 5.5, serving: 100, image: "🫓" },
+    { name: "Garlic Naan", cal: 280, protein: 8.5, carbs: 44, fat: 7.5, serving: 100, image: "🫓" },
+    { name: "Butter Naan", cal: 290, protein: 8.0, carbs: 43, fat: 9.0, serving: 100, image: "🫓" },
+    { name: "Paratha", cal: 236, protein: 5.0, carbs: 38, fat: 7.5, serving: 100, image: "🥘" },
+    { name: "Methi Paratha", cal: 240, protein: 5.5, carbs: 39, fat: 8.0, serving: 100, image: "🥘" },
+    { name: "Dosa", cal: 168, protein: 3.0, carbs: 33, fat: 0.7, serving: 100, image: "🥞" },
+    { name: "Masala Dosa", cal: 200, protein: 4.0, carbs: 40, fat: 2.0, serving: 100, image: "🥞" },
+    { name: "Idli", cal: 50, protein: 2.0, carbs: 10, fat: 0.3, serving: 100, image: "🍚" },
+    { name: "Upma", cal: 140, protein: 4.0, carbs: 26, fat: 2.5, serving: 100, image: "🍲" },
+    { name: "Uttapam", cal: 130, protein: 3.5, carbs: 25, fat: 1.5, serving: 100, image: "🥞" },
+    { name: "Poha (Beaten rice)", cal: 110, protein: 2.5, carbs: 23, fat: 0.5, serving: 100, image: "🍚" },
+    { name: "Khichdi", cal: 120, protein: 4.0, carbs: 22, fat: 2.0, serving: 100, image: "🍲" },
+    { name: "Rajma (Kidney beans)", cal: 100, protein: 7.5, carbs: 18, fat: 0.3, serving: 100, image: "🫘" },
+    { name: "Baingan Bharta", cal: 70, protein: 1.8, carbs: 13, fat: 1.5, serving: 100, image: "🍆" },
+    { name: "Spinach & Paneer (Palak Paneer)", cal: 140, protein: 15, carbs: 5.0, fat: 7.0, serving: 100, image: "🥬" },
+    { name: "Ghee", cal: 892, protein: 0.0, carbs: 0, fat: 99, serving: 10, image: "🧈" },
+    { name: "Coconut Oil", cal: 892, protein: 0.0, carbs: 0, fat: 99, serving: 10, image: "🥥" },
+    { name: "Mustard Oil", cal: 884, protein: 0, carbs: 0, fat: 100, serving: 10, image: "🫗" },
+    { name: "Yogurt (plain)", cal: 59, protein: 3.5, carbs: 3.3, fat: 0.4, serving: 100, image: "🥛" },
+    { name: "Lassi (sweet)", cal: 60, protein: 2.0, carbs: 10, fat: 1.0, serving: 100, image: "🥤" },
+    { name: "Lassi (salted)", cal: 50, protein: 2.0, carbs: 8.0, fat: 0.8, serving: 100, image: "🥤" },
+    { name: "Buttermilk (Chaach)", cal: 40, protein: 1.5, carbs: 3.0, fat: 0.2, serving: 100, image: "🥛" },
+    { name: "Jeera Rice", cal: 135, protein: 2.7, carbs: 29, fat: 0.5, serving: 100, image: "🍚" },
+    { name: "Lemon Rice", cal: 130, protein: 2.6, carbs: 28, fat: 0.8, serving: 100, image: "🍚" },
+    { name: "Coconut Rice", cal: 150, protein: 2.5, carbs: 28, fat: 3.5, serving: 100, image: "🍚" },
+    { name: "Tamarind (Imli)", cal: 239, protein: 2.8, carbs: 62, fat: 0.3, serving: 100, image: "🫒" },
+    { name: "Jaggery (Gur)", cal: 383, protein: 0.4, carbs: 95, fat: 0.1, serving: 100, image: "🍯" },
+    { name: "Chickpea Flour (Besan)", cal: 387, protein: 22, carbs: 58, fat: 6.0, serving: 100, image: "🌾" },
     
     // Western Foods
-    { name: "Chicken Breast (grilled)", cal: 165, protein: 31, carbs: 0, fat: 3.6, serving: 100 },
-    { name: "Salmon (grilled)", cal: 206, protein: 22, carbs: 0, fat: 13, serving: 100 },
-    { name: "Egg", cal: 155, protein: 13, carbs: 1.1, fat: 11, serving: 100 },
-    { name: "Egg White", cal: 52, protein: 11, carbs: 0.7, fat: 0.2, serving: 100 },
-    { name: "Beef (lean, grilled)", cal: 180, protein: 26, carbs: 0, fat: 8.0, serving: 100 },
-    { name: "Turkey Breast", cal: 135, protein: 29, carbs: 0, fat: 1.3, serving: 100 },
-    { name: "Pork Loin (grilled)", cal: 185, protein: 27, carbs: 0, fat: 8.0, serving: 100 },
-    { name: "Tilapia (grilled)", cal: 96, protein: 20, carbs: 0, fat: 1.2, serving: 100 },
-    { name: "Tuna (canned in water)", cal: 84, protein: 18, carbs: 0, fat: 0.7, serving: 100 },
-    { name: "Broccoli (cooked)", cal: 34, protein: 2.8, carbs: 7, fat: 0.4, serving: 100 },
-    { name: "Spinach (cooked)", cal: 23, protein: 2.9, carbs: 3.6, fat: 0.4, serving: 100 },
-    { name: "Carrot (raw)", cal: 41, protein: 0.9, carbs: 10, fat: 0.2, serving: 100 },
-    { name: "Broccoli (raw)", cal: 34, protein: 2.8, carbs: 7, fat: 0.4, serving: 100 },
-    { name: "Sweet Potato (cooked)", cal: 86, protein: 1.6, carbs: 20, fat: 0.1, serving: 100 },
-    { name: "Potato (boiled)", cal: 77, protein: 1.7, carbs: 17, fat: 0.1, serving: 100 },
-    { name: "Banana", cal: 89, protein: 1.1, carbs: 23, fat: 0.3, serving: 100 },
-    { name: "Apple", cal: 52, protein: 0.3, carbs: 14, fat: 0.2, serving: 100 },
-    { name: "Orange", cal: 47, protein: 0.9, carbs: 12, fat: 0.1, serving: 100 },
-    { name: "Whole Wheat Bread", cal: 247, protein: 13, carbs: 41, fat: 3.3, serving: 100 },
-    { name: "Brown Rice", cal: 111, protein: 2.6, carbs: 23, fat: 0.9, serving: 100 },
-    { name: "Oats", cal: 389, protein: 16.9, carbs: 66, fat: 6.9, serving: 100 },
-    { name: "Pasta (cooked)", cal: 131, protein: 5.0, carbs: 25, fat: 1.1, serving: 100 },
-    { name: "Milk (whole)", cal: 61, protein: 3.2, carbs: 4.8, fat: 3.3, serving: 100 },
-    { name: "Milk (low-fat)", cal: 49, protein: 3.4, carbs: 4.8, fat: 1.0, serving: 100 },
-    { name: "Greek Yogurt", cal: 59, protein: 10, carbs: 3.3, fat: 0.4, serving: 100 },
-    { name: "Cheese (cheddar)", cal: 403, protein: 23, carbs: 3.3, fat: 33, serving: 100 },
-    { name: "Almonds", cal: 579, protein: 21, carbs: 22, fat: 50, serving: 100 },
-    { name: "Peanut Butter", cal: 588, protein: 25, carbs: 20, fat: 50, serving: 100 },
-    { name: "Olive Oil", cal: 884, protein: 0, carbs: 0, fat: 100, serving: 10 },
-    { name: "Avocado", cal: 160, protein: 2.0, carbs: 9, fat: 15, serving: 100 },
-    { name: "Almonds (raw)", cal: 579, protein: 21, carbs: 22, fat: 50, serving: 100 },
-    { name: "Walnuts", cal: 654, protein: 9.1, carbs: 14, fat: 65, serving: 100 },
+    { name: "Chicken Breast (grilled)", cal: 165, protein: 31, carbs: 0, fat: 3.6, serving: 100, image: "🍗" },
+    { name: "Salmon (grilled)", cal: 206, protein: 22, carbs: 0, fat: 13, serving: 100, image: "🐟" },
+    { name: "Egg", cal: 155, protein: 13, carbs: 1.1, fat: 11, serving: 100, image: "🥚" },
+    { name: "Egg White", cal: 52, protein: 11, carbs: 0.7, fat: 0.2, serving: 100, image: "🥚" },
+    { name: "Beef (lean, grilled)", cal: 180, protein: 26, carbs: 0, fat: 8.0, serving: 100, image: "🥩" },
+    { name: "Turkey Breast", cal: 135, protein: 29, carbs: 0, fat: 1.3, serving: 100, image: "🍗" },
+    { name: "Pork Loin (grilled)", cal: 185, protein: 27, carbs: 0, fat: 8.0, serving: 100, image: "🥩" },
+    { name: "Tilapia (grilled)", cal: 96, protein: 20, carbs: 0, fat: 1.2, serving: 100, image: "🐟" },
+    { name: "Tuna (canned in water)", cal: 84, protein: 18, carbs: 0, fat: 0.7, serving: 100, image: "🐟" },
+    { name: "Broccoli (cooked)", cal: 34, protein: 2.8, carbs: 7, fat: 0.4, serving: 100, image: "🥦" },
+    { name: "Spinach (cooked)", cal: 23, protein: 2.9, carbs: 3.6, fat: 0.4, serving: 100, image: "🥬" },
+    { name: "Carrot (raw)", cal: 41, protein: 0.9, carbs: 10, fat: 0.2, serving: 100, image: "🥕" },
+    { name: "Broccoli (raw)", cal: 34, protein: 2.8, carbs: 7, fat: 0.4, serving: 100, image: "🥦" },
+    { name: "Sweet Potato (cooked)", cal: 86, protein: 1.6, carbs: 20, fat: 0.1, serving: 100, image: "🥔" },
+    { name: "Potato (boiled)", cal: 77, protein: 1.7, carbs: 17, fat: 0.1, serving: 100, image: "🥔" },
+    { name: "Banana", cal: 89, protein: 1.1, carbs: 23, fat: 0.3, serving: 100, image: "🍌" },
+    { name: "Apple", cal: 52, protein: 0.3, carbs: 14, fat: 0.2, serving: 100, image: "🍎" },
+    { name: "Orange", cal: 47, protein: 0.9, carbs: 12, fat: 0.1, serving: 100, image: "🍊" },
+    { name: "Whole Wheat Bread", cal: 247, protein: 13, carbs: 41, fat: 3.3, serving: 100, image: "🍞" },
+    { name: "Brown Rice", cal: 111, protein: 2.6, carbs: 23, fat: 0.9, serving: 100, image: "🍚" },
+    { name: "Oats", cal: 389, protein: 16.9, carbs: 66, fat: 6.9, serving: 100, image: "🌾" },
+    { name: "Pasta (cooked)", cal: 131, protein: 5.0, carbs: 25, fat: 1.1, serving: 100, image: "🍝" },
+    { name: "Milk (whole)", cal: 61, protein: 3.2, carbs: 4.8, fat: 3.3, serving: 100, image: "🥛" },
+    { name: "Milk (low-fat)", cal: 49, protein: 3.4, carbs: 4.8, fat: 1.0, serving: 100, image: "🥛" },
+    { name: "Greek Yogurt", cal: 59, protein: 10, carbs: 3.3, fat: 0.4, serving: 100, image: "🥛" },
+    { name: "Cheese (cheddar)", cal: 403, protein: 23, carbs: 3.3, fat: 33, serving: 100, image: "🧀" },
+    { name: "Almonds", cal: 579, protein: 21, carbs: 22, fat: 50, serving: 100, image: "🥜" },
+    { name: "Peanut Butter", cal: 588, protein: 25, carbs: 20, fat: 50, serving: 100, image: "🥜" },
+    { name: "Olive Oil", cal: 884, protein: 0, carbs: 0, fat: 100, serving: 10, image: "🫒" },
+    { name: "Avocado", cal: 160, protein: 2.0, carbs: 9, fat: 15, serving: 100, image: "🥑" },
+    { name: "Almonds (raw)", cal: 579, protein: 21, carbs: 22, fat: 50, serving: 100, image: "🥜" },
+    { name: "Walnuts", cal: 654, protein: 9.1, carbs: 14, fat: 65, serving: 100, image: "🥜" },
 
     // Additional Cuisines
-    { name: "Tomato Sauce", cal: 18, protein: 0.9, carbs: 3.9, fat: 0.2, serving: 100 },
-    { name: "Honey", cal: 304, protein: 0.3, carbs: 82, fat: 0, serving: 100 },
-    { name: "Tofu", cal: 76, protein: 8.1, carbs: 1.9, fat: 4.8, serving: 100 },
-    { name: "Garlic", cal: 149, protein: 6.4, carbs: 33, fat: 0.5, serving: 100 },
-    { name: "Ginger", cal: 80, protein: 1.8, carbs: 18, fat: 0.8, serving: 100 },
-    { name: "Turmeric", cal: 312, protein: 9.7, carbs: 67, fat: 3.3, serving: 100 },
-    { name: "Green Tea", cal: 0, protein: 0, carbs: 0, fat: 0, serving: 100 }
+    { name: "Tomato Sauce", cal: 18, protein: 0.9, carbs: 3.9, fat: 0.2, serving: 100, image: "🍅" },
+    { name: "Honey", cal: 304, protein: 0.3, carbs: 82, fat: 0, serving: 100, image: "🍯" },
+    { name: "Tofu", cal: 76, protein: 8.1, carbs: 1.9, fat: 4.8, serving: 100, image: "🟫" },
+    { name: "Garlic", cal: 149, protein: 6.4, carbs: 33, fat: 0.5, serving: 100, image: "🧄" },
+    { name: "Ginger", cal: 80, protein: 1.8, carbs: 18, fat: 0.8, serving: 100, image: "🟨" },
+    { name: "Turmeric", cal: 312, protein: 9.7, carbs: 67, fat: 3.3, serving: 100, image: "🟡" },
+    { name: "Green Tea", cal: 0, protein: 0, carbs: 0, fat: 0, serving: 100, image: "🍵" }
   ];
 
   // ===== FOOD SCANNER =====
@@ -1009,6 +1035,30 @@
     resultDiv.classList.remove("hidden");
   }
 
+  // ===== INDIAN FOOD GALLERY =====
+  function initIndianFoodGallery() {
+    const foodCards = document.querySelectorAll(".food-card");
+    const searchInput = document.getElementById("food-search");
+
+    foodCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const foodName = card.getAttribute("data-food");
+        if (searchInput) {
+          searchInput.value = foodName;
+          searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+          
+          // Scroll to macro calculator
+          setTimeout(() => {
+            const calculator = document.getElementById("macro-calculator");
+            if (calculator) {
+              calculator.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          }, 300);
+        }
+      });
+    });
+  }
+
   // ===== MACRO CALCULATOR =====
   function initMacroCalculator() {
     const searchInput = document.getElementById("food-search");
@@ -1037,8 +1087,13 @@
 
       let html = "";
       matches.forEach(food => {
+        const foodImage = food.image || "🍽️";
         html += `<div class="food-suggestion-item" data-food-name="${escapeHtml(food.name)}" data-food-cal="${food.cal}" data-food-protein="${food.protein}" data-food-carbs="${food.carbs}" data-food-fat="${food.fat}">
-          ${escapeHtml(food.name)} - ${food.cal} cal (per ${food.serving}g)
+          <span class="food-icon">${foodImage}</span>
+          <div class="food-info">
+            <strong>${escapeHtml(food.name)}</strong>
+            <small>${food.cal} cal per ${food.serving}g</small>
+          </div>
         </div>`;
       });
 
