@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Tracker — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="tracker">
+    <div class="live-badge"><span class="live-dot"></span><span class="live-text">LIVE</span></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo"><span class="logo-mark"></span>Gym Management System</a>
+      <nav class="nav" aria-label="Primary"></nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host"></div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Daily command center</p>
+        <h1 class="page-title">Daily tracker</h1>
+        <p class="page-lead">Log water, meals, workouts, weight, and mood in one place. Build streaks by showing up every day.</p>
+        <p class="tracker-streak-badge" id="tracker-streak">0 day streak</p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <label class="field inline-field">
+          <span>Date</span>
+          <input type="date" id="tracker-date" class="select-input" />
+        </label>
+        <div id="tracker-summary" class="tracker-summary-grid"></div>
+      </section>
+
+      <section class="panel-section js-reveal two-col">
+        <div class="card">
+          <h2 class="section-title">💧 Hydration</h2>
+          <p class="tracker-water-display">Glasses today: <strong id="water-count">0</strong> / 8</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-water-minus">−</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-water-plus">+ Add glass</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">🏋️ Workout</h2>
+          <p id="tracker-workout" class="tracker-status">⏳ No workout yet</p>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-mark-workout">Mark workout done</button>
+          <ul id="tracker-exercises" class="bullet-list tracker-ex-list"></ul>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal two-col">
+        <div class="card">
+          <h2 class="section-title">🍽️ Meals today</h2>
+          <ul id="tracker-meals" class="bullet-list"></ul>
+          <p class="muted-block">Add meals from <a href="diet.html">Diet Lab</a> macro calculator.</p>
+        </div>
+        <div class="card">
+          <h2 class="section-title">📊 Body & mood</h2>
+          <form class="stack-form" onsubmit="return false">
+            <label class="field"><span>Weight (kg)</span><input type="number" id="tracker-weight" step="0.1" min="30" max="300" /></label>
+            <label class="field"><span>Mood</span>
+              <select id="tracker-mood" class="select-input">
+                <option value="">—</option>
+                <option value="great">😄 Great</option>
+                <option value="good">🙂 Good</option>
+                <option value="ok">😐 OK</option>
+                <option value="tired">😴 Tired</option>
+                <option value="stressed">😤 Stressed</option>
+              </select>
+            </label>
+            <label class="field"><span>Notes</span><textarea id="tracker-notes" rows="3" placeholder="How did today go?"></textarea></label>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-save-tracker">Save log</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p><a href="planner.html">Planner</a> · Daily tracker</p></footer>
+    <script src="app.js"></script>
+    <script src="gms-features.js"></script>
+  </body>
+</html>

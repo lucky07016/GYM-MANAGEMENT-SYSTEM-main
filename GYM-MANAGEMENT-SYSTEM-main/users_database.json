@@ -13,6 +13,24 @@
         "region": "Local Machine",
         "city": "Localhost"
       }
+    },
+    {
+      "id": "ad99036f-c593-4d51-85ce-ec66f1b08699",
+      "displayName": "Test User",
+      "email": "testotp@example.com",
+      "phone": "+15551234567",
+      "password": "937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244",
+      "emailVerified": true,
+      "phoneVerified": true,
+      "verifiedAt": "2026-06-25T18:03:34.186Z",
+      "createdAt": "2026-06-25T18:03:34.186Z",
+      "createdFrom": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.22621.6133",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      }
     }
   ],
   "loginHistory": [
@@ -26,6 +44,23 @@
       "network": {
         "ip": "::1",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.124.2 Chrome/148.0.7778.97 Electron/42.2.0 Safari/537.36",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      },
+      "xp": 20
+    },
+    {
+      "action": "signup",
+      "userId": "ad99036f-c593-4d51-85ce-ec66f1b08699",
+      "email": "testotp@example.com",
+      "phone": "+15551234567",
+      "displayName": "Test User",
+      "timestamp": "2026-06-25T18:03:34.186Z",
+      "responseTime": "1ms",
+      "network": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.22621.6133",
         "country": "Local",
         "region": "Local Machine",
         "city": "Localhost"

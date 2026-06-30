@@ -33,13 +33,7 @@
         <span class="logo-mark" aria-hidden="true"></span>
         Gym Management System
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="workout.html">Workouts</a>
-        <a href="diet.html" class="nav-active">Diet</a>
-        <a href="progress.html">Progress</a>
-        <a href="planner.html">Planner</a>
-      </nav>
+      <nav class="nav" aria-label="Primary"></nav>
       <div class="header-actions">
         <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
         <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
@@ -97,6 +91,41 @@
           <button type="button" class="slideshow-btn slideshow-prev" aria-label="Previous">‹</button>
           <button type="button" class="slideshow-btn slideshow-next" aria-label="Next">›</button>
           <div class="slideshow-dots"></div>
+        </div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="section-head">
+          <h2 class="section-title">Calorie calculator (TDEE)</h2>
+          <p class="section-desc">Know your daily calorie target before building a meal plan.</p>
+        </div>
+        <div class="panel card">
+          <form id="form-tdee" class="form-grid stack-form">
+            <label class="field"><span>Weight (kg)</span><input type="number" name="weight" required min="30" max="300" step="0.1" /></label>
+            <label class="field"><span>Height (cm)</span><input type="number" name="height" required min="100" max="250" /></label>
+            <label class="field"><span>Age</span><input type="number" name="age" required min="14" max="100" /></label>
+            <label class="field"><span>Sex</span>
+              <select name="sex" class="select-input"><option value="male">Male</option><option value="female">Female</option></select>
+            </label>
+            <label class="field"><span>Activity level</span>
+              <select name="activity" class="select-input">
+                <option value="1.2">Sedentary</option>
+                <option value="1.375">Light (1–3 days/week)</option>
+                <option value="1.55" selected>Moderate (3–5 days/week)</option>
+                <option value="1.725">Active (6–7 days/week)</option>
+                <option value="1.9">Very active (2×/day)</option>
+              </select>
+            </label>
+            <label class="field"><span>Goal</span>
+              <select name="tdeeGoal" class="select-input">
+                <option value="maintain">Maintain</option>
+                <option value="cut">Fat loss</option>
+                <option value="bulk">Muscle gain</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn-primary btn-sm">Calculate targets</button>
+          </form>
+          <div id="tdee-result" class="tdee-result hidden card mini-card"></div>
         </div>
       </section>
 
@@ -173,6 +202,10 @@
             <button type="submit" class="btn btn-primary">Generate diet chart</button>
           </form>
           <div id="diet-output" class="diet-output hidden"></div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-save-diet-plan">Save plan</button>
+            <a href="tracker.html" class="btn btn-ghost btn-sm">View daily tracker →</a>
+          </div>
         </div>
       </section>
 
@@ -432,5 +465,6 @@
     </footer>
 
     <script src="app.js"></script>
+    <script src="gms-features.js"></script>
   </body>
 </html>

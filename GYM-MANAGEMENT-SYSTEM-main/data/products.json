@@ -1,0 +1,32 @@
+{
+  "categories": [
+    { "id": "supplements", "name": "Supplements", "icon": "💊" },
+    { "id": "bags", "name": "Gym Bags", "icon": "🎒" },
+    { "id": "shakers", "name": "Shakers", "icon": "🥤" },
+    { "id": "equipment", "name": "Equipment", "icon": "🏋️" },
+    { "id": "apparel", "name": "Apparel", "icon": "👕" },
+    { "id": "accessories", "name": "Accessories", "icon": "⌚" }
+  ],
+  "products": [
+    { "id": "whey-1kg", "name": "Whey Protein 1kg", "category": "supplements", "price": 2499, "rating": 4.7, "icon": "🥛", "desc": "24g protein per scoop. Chocolate flavor." },
+    { "id": "creatine-300g", "name": "Creatine Monohydrate 300g", "category": "supplements", "price": 899, "rating": 4.8, "icon": "⚡", "desc": "Micronized, unflavored, 60 servings." },
+    { "id": "pre-workout", "name": "Pre-Workout Energy", "category": "supplements", "price": 1299, "rating": 4.5, "icon": "🔥", "desc": "Caffeine + beta-alanine blend." },
+    { "id": "multivitamin", "name": "Daily Multivitamin", "category": "supplements", "price": 599, "rating": 4.4, "icon": "💊", "desc": "30-day supply, essential vitamins & minerals." },
+    { "id": "bcaa", "name": "BCAA Recovery Drink", "category": "supplements", "price": 1099, "rating": 4.3, "icon": "🧃", "desc": "Intra-workout amino support." },
+    { "id": "gym-bag-pro", "name": "Pro Gym Duffel Bag", "category": "bags", "price": 1899, "rating": 4.6, "icon": "🎒", "desc": "Shoe compartment, wet pocket, 45L capacity." },
+    { "id": "backpack-sport", "name": "Sport Backpack", "category": "bags", "price": 1299, "rating": 4.5, "icon": "🎒", "desc": "Laptop sleeve + bottle holders." },
+    { "id": "shaker-pro", "name": "Protein Shaker 700ml", "category": "shakers", "price": 349, "rating": 4.7, "icon": "🥤", "desc": "Leak-proof, mixing ball included." },
+    { "id": "shaker-smart", "name": "Smart Shaker with Pill Box", "category": "shakers", "price": 599, "rating": 4.4, "icon": "🥤", "desc": "3 compartments for supplements on the go." },
+    { "id": "dumbbell-set", "name": "Adjustable Dumbbell Set 24kg", "category": "equipment", "price": 8999, "rating": 4.8, "icon": "🏋️", "desc": "Quick-change weight plates, home gym essential." },
+    { "id": "resistance-bands", "name": "Resistance Band Set", "category": "equipment", "price": 799, "rating": 4.6, "icon": "🎯", "desc": "5 levels + door anchor + handles." },
+    { "id": "yoga-mat", "name": "Premium Yoga Mat 6mm", "category": "equipment", "price": 999, "rating": 4.5, "icon": "🧘", "desc": "Non-slip, extra thick for floor work." },
+    { "id": "jump-rope", "name": "Speed Jump Rope", "category": "equipment", "price": 449, "rating": 4.4, "icon": "⏱️", "desc": "Adjustable length, ball bearings." },
+    { "id": "lifting-belt", "name": "Leather Lifting Belt", "category": "equipment", "price": 2199, "rating": 4.7, "icon": "🦺", "desc": "4-inch width, S-XL sizes." },
+    { "id": "training-tee", "name": "Dry-Fit Training Tee", "category": "apparel", "price": 699, "rating": 4.5, "icon": "👕", "desc": "Moisture-wicking, breathable mesh." },
+    { "id": "gym-shorts", "name": "Performance Gym Shorts", "category": "apparel", "price": 899, "rating": 4.4, "icon": "🩳", "desc": "Zip pocket, 7-inch inseam." },
+    { "id": "lifting-gloves", "name": "Padded Lifting Gloves", "category": "accessories", "price": 549, "rating": 4.3, "icon": "🧤", "desc": "Wrist wrap support, grip padding." },
+    { "id": "fitness-tracker", "name": "Fitness Tracker Band", "category": "accessories", "price": 2999, "rating": 4.6, "icon": "⌚", "desc": "Heart rate, steps, sleep, workout modes." },
+    { "id": "gym-towel", "name": "Microfiber Gym Towel", "category": "accessories", "price": 299, "rating": 4.5, "icon": "🧻", "desc": "Quick-dry, carabiner clip." },
+    { "id": "massage-gun", "name": "Mini Massage Gun", "category": "accessories", "price": 3499, "rating": 4.7, "icon": "💆", "desc": "3 speeds, 4 heads, recovery tool." }
+  ]
+}

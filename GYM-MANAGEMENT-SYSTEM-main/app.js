@@ -259,12 +259,29 @@
   }
 
   function renderHeader() {
+    const serverUser = (() => {
+      try {
+        const raw = localStorage.getItem("gms_user");
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    })();
     const session = getSession();
     const badge = document.getElementById("user-badge");
     const btnLogin = document.getElementById("btn-open-login");
     const btnOut = document.getElementById("btn-logout");
     if (!badge || !btnLogin || !btnOut) return;
     const onLoginPage = pageName() === "login";
+
+    if (serverUser?.displayName || serverUser?.email) {
+      badge.textContent = serverUser.displayName || serverUser.email;
+      badge.classList.remove("hidden");
+      btnLogin.classList.add("hidden");
+      btnOut.classList.remove("hidden");
+      return;
+    }
+
     if (session && session.email) {
       const users = getUsers();
       const u = users.find((x) => x.email === session.email);
@@ -285,6 +302,7 @@
     if (btnOut) {
       btnOut.addEventListener("click", () => {
         setSession(null);
+        localStorage.removeItem("gms_user");
         renderHeader();
         toast("Logged out. Progress stays on this device.");
       });

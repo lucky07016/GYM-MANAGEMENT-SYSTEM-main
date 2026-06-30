@@ -31,13 +31,7 @@
         <span class="logo-mark" aria-hidden="true"></span>
         Gym Management System
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="workout.html">Workouts</a>
-        <a href="diet.html">Diet</a>
-        <a href="progress.html">Progress</a>
-        <a href="planner.html">Planner</a>
-      </nav>
+      <nav class="nav" aria-label="Primary"></nav>
       <div class="header-actions">
         <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
         <a href="login.html" class="btn btn-primary btn-sm hidden" id="btn-open-login">Login</a>
@@ -73,8 +67,7 @@
                 <p class="eyebrow">New players</p>
                 <h2 class="h2-auth">Create a character</h2>
                 <p class="muted-block">
-                  Sign up rolls +20 XP to kickstart your rank. No email verification in this demo—keep it
-                  local.
+                  Sign up with your email and phone number. We send a one-time code to your email to confirm registration (+20 XP bonus).
                 </p>
               </article>
               <article class="slide">
@@ -114,7 +107,7 @@
 
           <div id="panel-signup" class="hidden">
             <h1 class="page-title">Join the arena</h1>
-            <p class="page-lead">Create a profile to unlock tracking, levels, and rewards.</p>
+            <p class="page-lead">Enter your details. We will send a verification code to your email.</p>
             <form id="form-signup" class="stack-form">
               <label class="field">
                 <span>Display name</span>
@@ -125,14 +118,39 @@
                 <input type="email" name="email" required autocomplete="email" />
               </label>
               <label class="field">
+                <span>Phone number</span>
+                <input type="tel" name="phone" required autocomplete="tel" placeholder="+1 555 123 4567" />
+              </label>
+              <label class="field">
                 <span>Password</span>
                 <input type="password" name="password" required minlength="4" autocomplete="new-password" />
               </label>
-              <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+              <button type="submit" class="btn btn-primary btn-block">Send verification code</button>
             </form>
             <p class="modal-switch">
               Already have an account?
               <button type="button" class="link-btn" id="btn-show-login">Back to login</button>
+            </p>
+          </div>
+
+          <div id="panel-signup-otp" class="hidden">
+            <h1 class="page-title">Verify your account</h1>
+            <p class="page-lead">
+              Enter the 6-digit code sent to <strong id="otp-email-display"></strong>.
+            </p>
+            <p class="muted-block" id="otp-dev-hint" hidden></p>
+            <form id="form-signup-otp" class="stack-form">
+              <label class="field">
+                <span>Verification code</span>
+                <input type="text" name="otp" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="123456" autocomplete="one-time-code" />
+              </label>
+              <button type="submit" class="btn btn-primary btn-block">Confirm &amp; create account</button>
+            </form>
+            <p class="modal-switch">
+              Didn't get the code?
+              <button type="button" class="link-btn" id="btn-resend-otp">Resend code</button>
+              ·
+              <button type="button" class="link-btn" id="btn-back-signup">Change details</button>
             </p>
           </div>
         </div>
@@ -145,7 +163,7 @@
         <ul class="bullet-list">
           <li>Shows your display name in the header instead of “guest”.</li>
           <li>Keeps a clear boundary if multiple people share the same PC (separate emails).</li>
-          <li>Sign-up grants bonus XP so the progress RPG starts with momentum.</li>
+          <li>Sign-up requires email, phone number, and OTP verification before your account is saved.</li>
           <li>Everything still saves locally—this isn’t cloud sync; it’s a labeled save slot.</li>
         </ul>
       </section>
@@ -157,5 +175,6 @@
 
     <script src="app.js"></script>
     <script src="auth-client.js"></script>
+    <script src="gms-features.js"></script>
   </body>
 </html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Mart — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="mart">
+    <div class="live-badge"><span class="live-dot"></span><span class="live-text">LIVE</span></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo"><span class="logo-mark"></span>Gym Management System</a>
+      <nav class="nav" aria-label="Primary"></nav>
+      <div class="header-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-toggle-cart">🛒 Cart (<span id="cart-count">0</span>)</button>
+        <span id="user-badge" class="user-badge hidden"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host"></div>
+
+    <aside id="cart-panel" class="cart-panel hidden">
+      <div class="cart-panel-inner card">
+        <h2>Your cart</h2>
+        <div id="cart-items"></div>
+        <p class="cart-total-line">Total: <strong id="cart-total">₹0</strong></p>
+        <button type="button" class="btn btn-primary btn-block" id="btn-checkout">Place order (demo)</button>
+      </div>
+    </aside>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Gym essentials</p>
+        <h1 class="page-title">Gym Mart</h1>
+        <p class="page-lead">Shop supplements, shakers, bags, equipment, apparel, and accessories — everything you need for your fitness journey.</p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div id="mart-categories" class="mart-categories"></div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div id="product-grid" class="product-grid">
+          <p class="empty-state">Loading products…</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p>Gym Mart · demo checkout · prices in INR</p></footer>
+    <script src="app.js"></script>
+    <script src="gms-features.js"></script>
+  </body>
+</html>

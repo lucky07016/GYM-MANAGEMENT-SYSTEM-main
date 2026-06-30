@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Library — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="exercises">
+    <div class="live-badge"><span class="live-dot"></span><span class="live-text">LIVE</span></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo"><span class="logo-mark"></span>Gym Management System</a>
+      <nav class="nav" aria-label="Primary"></nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host"></div>
+
+    <main>
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Muscle library</p>
+        <h1 class="page-title">Exercise by muscle group</h1>
+        <p class="page-lead">Select a muscle group to browse exercises with equipment, sets, and form tips. Log any exercise to your daily tracker.</p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <label class="field">
+          <span>Search exercises</span>
+          <input type="search" id="exercise-search" placeholder="e.g. bench press, cable..." />
+        </label>
+        <div id="muscle-groups" class="muscle-chips"></div>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div id="exercise-list" class="exercise-grid">
+          <p class="empty-state">Loading exercises…</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p><a href="workout.html">← Workouts</a> · Exercise library</p></footer>
+    <script src="app.js"></script>
+    <script src="gms-features.js"></script>
+  </body>
+</html>

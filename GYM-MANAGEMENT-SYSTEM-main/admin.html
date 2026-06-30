@@ -171,10 +171,7 @@
             <span class="logo-mark" aria-hidden="true"></span>
             Gym Management System
         </a>
-        <nav class="nav" aria-label="Primary">
-            <a href="index.html">Home</a>
-            <a href="admin.html" style="color: var(--accent);">Admin</a>
-        </nav>
+        <nav class="nav" aria-label="Primary"></nav>
     </header>
 
     <div class="admin-container">
@@ -201,6 +198,16 @@
             <div class="stat-card">
                 <div class="stat-value">-</div>
                 <div class="stat-label">Failed Logins</div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>👥 Registered Users</h2>
+            <div class="button-group">
+                <button class="btn-admin" onclick="loadUsers()">🔄 Refresh users</button>
+            </div>
+            <div class="table-scroll" id="users-container">
+                <p class="empty-state">Loading...</p>
             </div>
         </div>
 
@@ -239,6 +246,55 @@
             }
         }
 
+        async function loadUsers() {
+            try {
+                const response = await fetch(`${API_BASE}/users`);
+                if (!response.ok) throw new Error('Failed to load users');
+                const data = await response.json();
+
+                if (!data.users || data.users.length === 0) {
+                    document.getElementById('users-container').innerHTML = '<p class="empty-state">No registered users yet</p>';
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Display Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Verified</th>
+                                <th>Registered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.users.forEach(user => {
+                    const verified = user.emailVerified && user.phoneVerified
+                        ? '<span class="badge badge-success">✓ Verified</span>'
+                        : '<span class="badge badge-error">Pending</span>';
+                    const created = user.createdAt ? new Date(user.createdAt).toLocaleString() : '-';
+
+                    html += `
+                        <tr>
+                            <td>${user.displayName}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone || '-'}</td>
+                            <td>${verified}</td>
+                            <td>${created}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                document.getElementById('users-container').innerHTML = html;
+            } catch (error) {
+                showError('Failed to load users: ' + error.message);
+            }
+        }
+
         async function loadHistory() {
             try {
                 const response = await fetch(`${API_BASE}/history`);
@@ -256,6 +312,7 @@
                             <tr>
                                 <th>Action</th>
                                 <th>Email</th>
+                                <th>Phone</th>
                                 <th>Display Name</th>
                                 <th>Status</th>
                                 <th>Response Time</th>
@@ -279,6 +336,7 @@
                         <tr>
                             <td><strong>${entry.action}</strong>${reason}</td>
                             <td>${entry.email}</td>
+                            <td>${entry.phone || '-'}</td>
                             <td>${name}</td>
                             <td>${statusBadge}</td>
                             <td>${entry.responseTime}</td>
@@ -333,14 +391,17 @@
         // Load data on page load
         window.addEventListener('load', () => {
             loadStats();
+            loadUsers();
             loadHistory();
 
             // Refresh every 5 seconds
             setInterval(() => {
                 loadStats();
+                loadUsers();
                 loadHistory();
             }, 5000);
         });
     </script>
+    <script src="gms-features.js"></script>
 </body>
 </html>

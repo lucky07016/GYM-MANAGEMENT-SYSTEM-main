@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Fitness Coach — Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="chat">
+    <div class="live-badge"><span class="live-dot"></span><span class="live-text">LIVE</span></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header site-header--padded">
+      <a href="index.html" class="logo"><span class="logo-mark"></span>Gym Management System</a>
+      <nav class="nav" aria-label="Primary"></nav>
+      <div class="header-actions">
+        <span id="user-badge" class="user-badge hidden"></span>
+        <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <div id="toast-host" class="toast-host"></div>
+
+    <main class="main-narrow">
+      <section class="page-hero js-reveal">
+        <p class="eyebrow">Personal coach</p>
+        <h1 class="page-title">AI Fitness Coach</h1>
+        <p class="page-lead">Ask about workouts, nutrition, supplements, recovery, and how to use any feature in this app.</p>
+      </section>
+
+      <section class="panel-section js-reveal">
+        <div class="chat-quick-row">
+          <button type="button" class="chat-quick btn btn-ghost btn-sm">How much protein do I need?</button>
+          <button type="button" class="chat-quick btn btn-ghost btn-sm">Best workout split?</button>
+          <button type="button" class="chat-quick btn btn-ghost btn-sm">Fat loss tips</button>
+          <button type="button" class="chat-quick btn btn-ghost btn-sm">Creatine guide</button>
+        </div>
+        <div id="chat-messages" class="chat-messages card"></div>
+        <form id="chat-form" class="chat-form">
+          <input type="text" id="chat-input" placeholder="Ask your fitness question…" autocomplete="off" required />
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        <button type="button" class="link-btn" id="btn-clear-chat">Clear chat history</button>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p>AI Coach · built-in answers · optional OpenAI via .env</p></footer>
+    <script src="app.js"></script>
+    <script src="gms-features.js"></script>
+  </body>
+</html>

@@ -34,13 +34,7 @@
         <span class="logo-mark" aria-hidden="true"></span>
         Gym Management System
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="index.html" class="nav-active">Home</a>
-        <a href="workout.html">Workouts</a>
-        <a href="diet.html">Diet</a>
-        <a href="progress.html">Progress</a>
-        <a href="planner.html">Planner</a>
-      </nav>
+      <nav class="nav" aria-label="Primary"></nav>
       <div class="header-actions">
         <span id="user-badge" class="user-badge hidden" aria-live="polite"></span>
         <a href="login.html" class="btn btn-primary btn-sm" id="btn-open-login">Login</a>
@@ -107,32 +101,56 @@
           <a href="login.html" class="zone-card zone-card--auth">
             <span class="zone-icon">🔐</span>
             <h3>Login / Sign up</h3>
-            <p>One login button; new players roll a character with email. Session saved locally.</p>
+            <p>Email + phone OTP verification. Secure account with data stored on the server.</p>
             <span class="zone-cta">Open gate →</span>
           </a>
           <a href="workout.html" class="zone-card">
             <span class="zone-icon">🏋️</span>
             <h3>Workout zone</h3>
-            <p>PPL, upper/lower, bro split, full body, arms, legs—pick a split and claim daily workout XP.</p>
+            <p>PPL, upper/lower, bro split, full body — pick a split and claim daily workout XP.</p>
             <span class="zone-cta">Load split →</span>
+          </a>
+          <a href="exercises.html" class="zone-card">
+            <span class="zone-icon">💪</span>
+            <h3>Exercise library</h3>
+            <p>Browse by muscle group — chest, back, legs, core, and more with form tips.</p>
+            <span class="zone-cta">Pick muscles →</span>
           </a>
           <a href="diet.html" class="zone-card">
             <span class="zone-icon">🥗</span>
             <h3>Diet lab</h3>
-            <p>Budget + style survey → generated weekly chart. First chart drops bonus XP.</p>
+            <p>TDEE calculator, weekly meal plans, food scanner, and macro tracking.</p>
             <span class="zone-cta">Run survey →</span>
           </a>
-          <a href="progress.html" class="zone-card">
-            <span class="zone-icon">📈</span>
-            <h3>Progress RPG</h3>
-            <p>Levels, titles, reward locker—every rep feeds the XP bar. Level-up modal included.</p>
-            <span class="zone-cta">View ranks →</span>
+          <a href="tracker.html" class="zone-card">
+            <span class="zone-icon">📋</span>
+            <h3>Daily tracker</h3>
+            <p>Water, meals, workouts, weight, mood — your all-in-one daily command center.</p>
+            <span class="zone-cta">Track today →</span>
           </a>
           <a href="planner.html" class="zone-card">
             <span class="zone-icon">🥧</span>
             <h3>Daily planner</h3>
-            <p>Quest list + pie chart by category. Check tasks for XP; see your day as a speedrun chart.</p>
+            <p>Quest list + pie chart by category. Schedule gym, meals, and rest blocks.</p>
             <span class="zone-cta">Plan day →</span>
+          </a>
+          <a href="mart.html" class="zone-card">
+            <span class="zone-icon">🛒</span>
+            <h3>Gym Mart</h3>
+            <p>Supplements, shakers, bags, equipment, apparel — shop gym essentials.</p>
+            <span class="zone-cta">Browse shop →</span>
+          </a>
+          <a href="chat.html" class="zone-card">
+            <span class="zone-icon">🤖</span>
+            <h3>AI Coach</h3>
+            <p>Personal fitness chat — ask about diet, workouts, supplements, and recovery.</p>
+            <span class="zone-cta">Ask coach →</span>
+          </a>
+          <a href="progress.html" class="zone-card">
+            <span class="zone-icon">📈</span>
+            <h3>Progress RPG</h3>
+            <p>Levels, titles, reward locker — every rep feeds the XP bar.</p>
+            <span class="zone-cta">View ranks →</span>
           </a>
         </div>
       </section>
@@ -222,5 +240,6 @@
     </footer>
 
     <script src="app.js"></script>
+    <script src="gms-features.js"></script>
   </body>
 </html>
