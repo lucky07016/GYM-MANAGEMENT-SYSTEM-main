@@ -259,7 +259,7 @@ app.post('/api/auth/signup/send-otp', async (req, res) => {
       phone: normalizedPhone,
       expiresInMinutes: 10,
       responseTime,
-      ...(IS_DEV && delivery.devMode ? { devOtp: otp } : {})
+      ...(IS_DEV ? { devOtp: otp } : {})
     });
   } catch (error) {
     console.error('Failed to send OTP email:', error);
@@ -313,7 +313,7 @@ app.post('/api/auth/signup/resend-otp', async (req, res) => {
         ? 'New verification code sent to your email'
         : 'New verification code generated (check server console in dev mode)',
       responseTime: `${Date.now() - startTime}ms`,
-      ...(IS_DEV && delivery.devMode ? { devOtp: otp } : {})
+      ...(IS_DEV ? { devOtp: otp } : {})
     });
   } catch (error) {
     console.error('Failed to resend OTP email:', error);
@@ -632,29 +632,46 @@ app.get('/api/products', (req, res) => {
 
 // ===== AI FITNESS COACH =====
 const FITNESS_KB = [
-  { keys: ['protein', 'how much protein'], reply: 'Aim for 1.6–2.2g protein per kg body weight if you train regularly. Spread it across 3–5 meals for best muscle protein synthesis.' },
-  { keys: ['lose weight', 'fat loss', 'cut', 'cutting'], reply: 'Fat loss needs a moderate calorie deficit (300–500 kcal below maintenance), high protein, resistance training 3–4×/week, and 7–9 hours sleep. Track food consistently for 2 weeks first.' },
-  { keys: ['bulk', 'gain muscle', 'mass'], reply: 'Lean bulk: eat 200–400 kcal above maintenance, prioritize progressive overload, protein at ~2g/kg, and sleep 7–9 hours. Expect 0.25–0.5 kg gain per month for quality mass.' },
-  { keys: ['creatine'], reply: 'Creatine monohydrate (3–5g daily) is well-researched for strength and muscle. Take it any time daily — consistency matters more than timing.' },
-  { keys: ['rest', 'recovery', 'sleep'], reply: 'Muscles grow during recovery. Aim for 7–9 hours sleep, deload every 4–6 weeks, and keep rest days truly light. Soreness is not the only progress signal.' },
-  { keys: ['warm up', 'warmup'], reply: 'Warm up 5–10 min: light cardio + dynamic mobility + 2 ramp-up sets on your first compound lift. This reduces injury risk and improves performance.' },
-  { keys: ['split', 'program', 'routine'], reply: 'Beginners: full body 3×/week. Intermediate: upper/lower 4× or PPL 6×. Pick what fits your schedule — consistency beats the “perfect” split.' },
-  { keys: ['supplement'], reply: 'Essentials: protein powder (if diet lacks protein), creatine, vitamin D if deficient. Pre-workout is optional. Whole food first — check our Mart for vetted products.' },
-  { keys: ['water', 'hydration'], reply: 'Drink water throughout the day. A simple guide: pale yellow urine. During training, sip 150–250ml every 15–20 min. Track glasses in the Daily Tracker.' },
-  { keys: ['cardio', 'running'], reply: 'Mix 2–3 cardio sessions weekly with lifting. LISS (walking, cycling) supports recovery; HIIT is time-efficient but don’t overdo it on leg days.' },
-  { keys: ['injury', 'pain'], reply: 'Sharp or joint pain: stop the exercise and consult a physio/doctor. Muscle soreness (DOMS) is normal 24–72h after new stimulus. Never train through sharp pain.' },
-  { keys: ['meal prep', 'diet plan'], reply: 'Use the Diet Lab to generate a weekly plan. Batch cook proteins and carbs on Sunday, portion into containers, and log meals in the Daily Tracker.' },
-  { keys: ['hello', 'hi', 'hey'], reply: 'Hey! I\'m your Gym AI Coach. Ask about workouts, diet, supplements, recovery, or how to use any feature in this app.' }
+  { keys: ['protein', 'how much protein'], reply: 'Aim for 1.6–2.2g protein per kg body weight if you train regularly. Spread it across 3–5 meals to support muscle repair and recovery.' },
+  { keys: ['lose weight', 'fat loss', 'cut', 'cutting'], reply: 'For fat loss, use a small calorie deficit of about 300–500 kcal, keep protein high, lift 3–4 times per week, and sleep 7–9 hours. Stay consistent for at least 2 weeks before judging results.' },
+  { keys: ['bulk', 'gain muscle', 'mass', 'hypertrophy'], reply: 'A lean bulk works best with a 200–400 kcal surplus, progressive overload, and protein around 1.8–2.2g/kg. Train hard, recover well, and aim for slow, steady gains.' },
+  { keys: ['creatine'], reply: 'Creatine monohydrate is one of the best-supported supplements for strength and muscle. Take 3–5g daily; consistency matters more than timing.' },
+  { keys: ['rest', 'recovery', 'sleep', 'deload'], reply: 'Recovery drives progress. Sleep 7–9 hours, keep at least 1–2 lighter days each week, and don’t ignore soreness, mobility, and hydration.' },
+  { keys: ['warm up', 'warmup'], reply: 'Warm up for 5–10 minutes with light cardio, mobility, and 2 ramp-up sets on your first main lift. That helps reduce injury risk and improves performance.' },
+  { keys: ['split', 'program', 'routine', 'workout split'], reply: 'Beginners often do best with a full-body routine 3x per week. Intermediates may prefer upper/lower or push/pull/legs, depending on time and recovery.' },
+  { keys: ['supplement', 'pre workout', 'vitamin d'], reply: 'The essentials are protein powder if needed, creatine, and vitamin D if you are deficient. Pre-workout is optional; whole food should stay your priority.' },
+  { keys: ['water', 'hydration'], reply: 'Drink water throughout the day and keep urine pale yellow. During training, sip about 150–250ml every 15–20 minutes.' },
+  { keys: ['cardio', 'running', 'hiit', 'liss'], reply: 'A strong plan usually combines lifting with 2–3 cardio sessions per week. LISS helps recovery, while HIIT is great for conditioning when you are not overdoing leg volume.' },
+  { keys: ['injury', 'pain', 'doms'], reply: 'Sharp or joint pain means stop and get checked. Delayed soreness is normal for 24–72 hours after a new stimulus, but pain that worsens is not.' },
+  { keys: ['meal prep', 'diet plan', 'calorie', 'macro'], reply: 'Use the Diet Lab to build a weekly plan, prep proteins and carbs in advance, and track meals in the Daily Tracker so you can adjust based on results.' },
+  { keys: ['bench', 'press', 'chest', 'push'], reply: 'For chest and pressing, focus on progressive overload with bench, incline press, dips, or push-ups, and keep your reps in a challenging range with good form.' },
+  { keys: ['squat', 'deadlift', 'leg', 'pull'], reply: 'Squats and deadlifts are excellent for lower body and posterior chain strength. Start with controlled reps, balance your volume, and add load slowly.' },
+  { keys: ['beginner', 'new to gym'], reply: 'Start simple: 3 full-body sessions per week, learn basic movement patterns, and keep the weights manageable. Consistency matters more than doing everything at once.' },
+  { keys: ['hello', 'hi', 'hey'], reply: 'Hey! I’m your Gym AI Coach. I can help with workouts, diet, supplements, recovery, and how to use the app’s fitness tools. Ask me anything specific.' }
 ];
 
 function getFitnessReply(message) {
   const lower = message.toLowerCase();
+
+  if (/workout plan|plan for|routine for|program for/.test(lower)) {
+    return 'A solid beginner-friendly routine is 3 full-body sessions each week with 5–6 movements, 2–4 sets per exercise, and 8–12 reps for most lifts. Add progressive overload slowly and aim for recovery between sessions.';
+  }
+
+  if (/form|technique|exercise form/.test(lower)) {
+    return 'Good form is the main priority. Move with control, keep the target muscle under tension, and stop if the movement feels unstable or painful. A lighter weight with clean reps beats sloppy heavy reps.';
+  }
+
+  if (/progress|weight loss|muscle gain|strength/.test(lower)) {
+    return 'Track your workouts and body measurements weekly. If strength is rising and recovery is good, your plan is working. Adjust calories or volume only when progress stalls for 2–3 weeks.';
+  }
+
   for (const entry of FITNESS_KB) {
     if (entry.keys.some((k) => lower.includes(k))) {
       return entry.reply;
     }
   }
-  return 'Great question! For workouts, try the Exercises page to pick muscle groups. For nutrition, use Diet Lab + Daily Tracker. For gear, browse the Gym Mart. Ask me about protein, fat loss, bulking, splits, supplements, or recovery.';
+
+  return 'Great question! For workouts, use the Exercises page to choose a muscle group. For nutrition, use the Diet Lab and Daily Tracker. For gear, browse the Gym Mart. I can also help with fat loss, bulking, splits, supplements, recovery, and gym basics.';
 }
 
 app.post('/api/chat', async (req, res) => {
@@ -679,7 +696,7 @@ app.post('/api/chat', async (req, res) => {
           messages: [
             {
               role: 'system',
-              content: 'You are a friendly, concise fitness coach for a gym management app. Give practical advice on workouts, diet, supplements, and daily habits. Keep answers under 120 words.'
+              content: 'You are a friendly, expert fitness coach for a gym management app. Give practical, evidence-informed advice on workouts, nutrition, recovery, supplements, exercise form, and gym habits. Keep answers clear, motivating, and under 180 words. If the user asks for a plan, include sets, reps, progression, and recovery guidance.'
             },
             ...(context ? [{ role: 'system', content: `User context: ${context}` }] : []),
             { role: 'user', content: userMessage }

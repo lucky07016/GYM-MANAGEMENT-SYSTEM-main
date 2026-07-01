@@ -31,6 +31,24 @@
         "region": "Local Machine",
         "city": "Localhost"
       }
+    },
+    {
+      "id": "df88d4c7-c3f2-4c1b-9059-370097059642",
+      "displayName": "Yujiro Hanma",
+      "email": "luckykumar712006@gmail.com",
+      "phone": "+918527958372",
+      "password": "a3e1d4d03efb638c669fda5fa18e8db3c8939da0cf23f45b63db6369b7147abf",
+      "emailVerified": true,
+      "phoneVerified": true,
+      "verifiedAt": "2026-07-01T18:54:45.137Z",
+      "createdAt": "2026-07-01T18:54:45.137Z",
+      "createdFrom": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.126.0 Chrome/148.0.7778.97 Electron/42.2.0 Safari/537.36",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      }
     }
   ],
   "loginHistory": [
@@ -61,6 +79,23 @@
       "network": {
         "ip": "::1",
         "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.22621.6133",
+        "country": "Local",
+        "region": "Local Machine",
+        "city": "Localhost"
+      },
+      "xp": 20
+    },
+    {
+      "action": "signup",
+      "userId": "df88d4c7-c3f2-4c1b-9059-370097059642",
+      "email": "luckykumar712006@gmail.com",
+      "phone": "+918527958372",
+      "displayName": "Yujiro Hanma",
+      "timestamp": "2026-07-01T18:54:45.137Z",
+      "responseTime": "4ms",
+      "network": {
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.126.0 Chrome/148.0.7778.97 Electron/42.2.0 Safari/537.36",
         "country": "Local",
         "region": "Local Machine",
         "city": "Localhost"

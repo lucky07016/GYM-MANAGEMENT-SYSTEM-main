@@ -3,6 +3,7 @@
   'use strict';
 
   const API_BASE = 'http://localhost:3000/api/auth';
+  const OTP_SESSION_KEY = 'gms_pending_otp';
   let pendingSignupEmail = '';
 
   function showToast(message, type = 'info') {
@@ -39,24 +40,74 @@
     }));
   }
 
-  function showOtpPanel(email, devOtp) {
-    pendingSignupEmail = email;
+  function readOtpForTab() {
+    try {
+      const raw = sessionStorage.getItem(OTP_SESSION_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function persistOtpForTab(email, otp) {
+    if (!email || !otp) {
+      sessionStorage.removeItem(OTP_SESSION_KEY);
+      return;
+    }
+
+    sessionStorage.setItem(OTP_SESSION_KEY, JSON.stringify({
+      email,
+      otp,
+      createdAt: Date.now()
+    }));
+  }
+
+  function clearOtpForTab() {
+    sessionStorage.removeItem(OTP_SESSION_KEY);
+  }
+
+  function renderOtpHint(email, otpToShow) {
     const emailDisplay = document.getElementById('otp-email-display');
     const devHint = document.getElementById('otp-dev-hint');
+    const otpCodeDisplay = document.getElementById('otp-code-display');
 
     if (emailDisplay) {
       emailDisplay.textContent = email;
     }
 
+    if (otpCodeDisplay) {
+      if (otpToShow) {
+        otpCodeDisplay.hidden = false;
+        otpCodeDisplay.textContent = `Code for this tab: ${otpToShow}`;
+      } else {
+        otpCodeDisplay.hidden = true;
+        otpCodeDisplay.textContent = '';
+      }
+    }
+
     if (devHint) {
-      if (devOtp) {
+      if (otpToShow) {
         devHint.hidden = false;
-        devHint.textContent = `Dev mode: your code is ${devOtp} (also printed in the server console).`;
+        devHint.textContent = `Use this code for this tab only. If you refresh, it stays here until you verify or close the tab.`;
       } else {
         devHint.hidden = true;
         devHint.textContent = '';
       }
     }
+  }
+
+  function showOtpPanel(email, devOtp) {
+    pendingSignupEmail = email;
+    const storedOtp = readOtpForTab();
+    const otpToShow = devOtp || (storedOtp?.email === email ? storedOtp.otp : '');
+
+    if (otpToShow) {
+      persistOtpForTab(email, otpToShow);
+    } else {
+      clearOtpForTab();
+    }
+
+    renderOtpHint(email, otpToShow);
 
     const otpInput = document.querySelector('#form-signup-otp input[name="otp"]');
     if (otpInput) {
@@ -122,6 +173,7 @@
       const data = await response.json();
 
       if (response.ok && data.success) {
+        clearOtpForTab();
         showToast(`Welcome ${data.user.displayName}! Account verified (+${data.bonusXP} XP)`, 'success');
         storeUserSession(data.user);
         setTimeout(() => {
@@ -157,11 +209,8 @@
       if (response.ok && data.success) {
         showToast(data.message, 'success');
         if (data.devOtp) {
-          const devHint = document.getElementById('otp-dev-hint');
-          if (devHint) {
-            devHint.hidden = false;
-            devHint.textContent = `Dev mode: your new code is ${data.devOtp}.`;
-          }
+          persistOtpForTab(pendingSignupEmail, data.devOtp);
+          renderOtpHint(pendingSignupEmail, data.devOtp);
         }
       } else {
         showToast(data.message || 'Could not resend code', 'error');

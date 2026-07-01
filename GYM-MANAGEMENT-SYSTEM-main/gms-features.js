@@ -543,7 +543,7 @@
     function renderHistory() {
       messages.innerHTML = "";
       if (!history.length) {
-        appendMessage("bot", "Hi! I'm your personal fitness coach. Ask about workouts, diet, supplements, recovery, or how to use this app.");
+        appendMessage("bot", "Hi! I’m your AI gym coach. I can help with workout plans, protein targets, fat loss, recovery, supplements, and smart gym habits. Try one of the quick prompts above or ask me anything specific.");
         return;
       }
       history.forEach((h) => appendMessage(h.role === "user" ? "user" : "bot", h.text));
