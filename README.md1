@@ -31,7 +31,47 @@ It combines **clean UI**, **dynamic functionality**, and **gaming vibes 🎮** t
 
 ---
 
-## 📂 Project Structure
+## � Architecture Overview
+
+This project is a simple full-stack web application with a frontend UI and a Node.js backend.
+
+### Flowchart
+
+```mermaid
+flowchart TD
+    A[User opens the app in a browser] --> B[Frontend loads HTML, CSS, and JavaScript]
+    B --> C[User interacts with the UI]
+    C --> D[JavaScript sends an API request]
+    D --> E[Express server in server.js]
+    E --> F[Backend validates the request]
+    F --> G[Reads or writes JSON data files]
+    G --> H[Returns a JSON response]
+    H --> I[Frontend updates the page or displays a message]
+```
+
+### Frontend
+
+* HTML5 for page structure
+* CSS3 for styling and animations
+* Vanilla JavaScript for interactivity and app logic
+
+### Backend
+
+* Node.js
+* Express.js
+* Additional packages such as cors, body-parser, and nodemailer
+
+### Database / Data Storage
+
+The app currently uses local JSON files instead of a traditional database like MySQL, PostgreSQL, or MongoDB.
+
+* users_database.json stores registered users and login history
+* otp_storage.json stores OTP verification data
+* data/exercises.json and data/products.json store fitness and product data
+
+---
+
+## �📂 Project Structure
 
 ```
 Gym-Management-System/
